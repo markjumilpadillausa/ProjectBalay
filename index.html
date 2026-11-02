@@ -256,6 +256,14 @@ html,body{margin:0}
 .gd th.cq{width:3.4em}.gd th.cu{width:4.2em}.gd th.cp{width:6.2em}.gd th.ca{width:6.6em}.gd th.cph{width:3.8em}
 .gd .gd-total{font-size:1.15em;margin:.5em 0}.gd .gd-notes{margin-top:.9em}
 
+.sh-ph{font-size:13pt;font-weight:800;margin-top:1mm}.sh-prep{display:flex;justify-content:space-between;font-size:11pt}
+.sh-r{border-top:.5mm solid #000!important}.sh-r:first-child{border-top:0!important}
+.sh-r>span{border-left:.5mm solid #000!important}.sh-r>span:first-child{border-left:0!important}
+.sh-rows{border:.7mm solid #000!important;border-top:0!important}.sh-head{border:.7mm solid #000!important}
+.sh-head>span{border-left:.5mm solid #000!important}.sh-head>span:first-child{border-left:0!important}
+.sheet{border-radius:0!important;box-shadow:none!important;animation:none!important}
+.sh-prep{margin-top:2mm;align-items:flex-end;gap:8mm}.sh-prep span:first-child{flex:1}.sh-prep span:first-child .ln{width:calc(100% - 28mm)}.sh-prep .ln.s{width:42mm}
+
 </style>
 </head>
 <body>
@@ -1784,7 +1792,7 @@ html,body{margin:0}
   function sheetItems(ph) { return phaseItems(ph).filter(function (it) { return it.t !== 'F'; }); }
   function sheetPage(chunk, listNo, start, label) {
     var p = paper(), d = document.createElement('div'); d.className = 'sheet'; d.style.width = p.w + 'mm'; d.style.height = (p.h - 2) + 'mm';
-    d.innerHTML = '<div class="sh-top"><div class="sh-title">LIST OF MATERIALS</div><div class="sh-contact">Contact number<b>' + CONTACT + '</b></div></div>' +
+    d.innerHTML = '<div class="sh-top"><div class="sh-ttl"><div class="sh-title">LIST OF MATERIALS</div><div class="sh-ph">PHASE ' + listNo + ': ' + esc(TITLES[listNo - 1] || '') + '</div></div><div class="sh-contact">Contact number<b>' + CONTACT + '</b></div></div>' +
       '<div class="sh-meta"><span>List no. ' + listNo + (label ? ', ' + label : '') + '</span><span>Store name: <i class="ln"></i></span><span>Date: <i class="ln s"></i></span></div>' +
       '<div class="sh-note">Write <b>NA</b> if the item is not available. The total is optional: quantity times price.</div>' +
       '<div class="sh-head"><span class="c-no">No.</span><span class="c-it">Item and description</span><span class="c-q">Qty</span><span class="c-u">Unit</span><span class="c-p">Price per unit (₱)</span><span class="c-t">Total (₱)</span></div>' +
