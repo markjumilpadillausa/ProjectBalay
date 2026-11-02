@@ -165,7 +165,7 @@ main>section{display:flex;flex-direction:column;gap:16px}
 footer{border-top:1px solid var(--line);padding:22px 16px 96px;text-align:center;color:var(--muted);font-size:13px;line-height:1.7}footer b{color:var(--fg);font-size:15px}
 #printArea{display:none}
 html,body{margin:0}
-@media print{body>*{display:none!important}body.pb>#printArea{display:block!important;padding:12mm;color:#000;background:#fff;font-size:12px}body.ps>#sheetArea{display:block!important;position:static!important;left:auto!important;width:auto!important}body{display:block;background:#fff}#printArea table{width:100%;border-collapse:collapse;margin-bottom:12px}#printArea td,#printArea th{border:1px solid #888;padding:4px 6px;text-align:left}#printArea h2{margin:14px 0 6px;font-size:15px}.sheet{break-after:page;page-break-after:always}.sheet:last-child{break-after:auto;page-break-after:auto}}
+@media print{.gpage{break-after:page;page-break-after:always}.gpage:last-child{break-after:auto;page-break-after:auto}body>*{display:none!important}body.pb>#printArea{display:block!important;padding:12mm;color:#000;background:#fff;font-size:12px}body.ps>#sheetArea{display:block!important;position:static!important;left:auto!important;width:auto!important}body{display:block;background:#fff}#printArea table{width:100%;border-collapse:collapse;margin-bottom:12px}#printArea td,#printArea th{border:1px solid #888;padding:4px 6px;text-align:left}#printArea h2{margin:14px 0 6px;font-size:15px}.sheet{break-after:page;page-break-after:always}.sheet:last-child{break-after:auto;page-break-after:auto}}
 /* responsive */
 @media (max-width:1000px){
  .mhead{display:none}
@@ -186,19 +186,20 @@ html,body{margin:0}
 
 /* price sheet for stores: plain black on white, A4 */
 #sheetArea{position:absolute;left:-10000px;top:0;width:210mm}
-.sheet{--fs:13pt;padding:10mm 12mm;box-sizing:border-box;display:flex;flex-direction:column;gap:3mm;background:#fff;color:#000;font-family:Arial,Helvetica,sans-serif;overflow:hidden}
+.sheet{-webkit-print-color-adjust:exact;print-color-adjust:exact;--fs:13pt;padding:10mm 12mm;box-sizing:border-box;display:flex;flex-direction:column;gap:3mm;background:#fff;color:#000;font-family:Arial,Helvetica,sans-serif;overflow:hidden}
 .sh-top{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1.2mm solid #000;padding-bottom:2mm}.sh-title{font-size:26pt;font-weight:800;letter-spacing:.02em}
 .sh-contact{text-align:right;font-size:11pt;line-height:1.2}.sh-contact b{display:block;font-size:20pt}
 .sh-meta{display:flex;gap:8mm;font-size:12pt;align-items:flex-end}.sh-meta span:nth-child(2){flex:1}.ln{display:inline-block;border-bottom:.4mm solid #000;width:62mm;height:5mm;vertical-align:bottom}.ln.s{width:32mm}.sh-meta span:nth-child(2) .ln{width:calc(100% - 28mm)}
 .sh-note{font-size:11pt;border:.4mm solid #000;padding:1.5mm 3mm}
 .sh-head,.sh-r{display:grid;grid-template-columns:10mm 1fr 15mm 15mm 30mm 33mm;align-items:stretch}
-.sh-head{background:#000;color:#fff;font-weight:700;font-size:11pt;margin-bottom:-3mm}.sh-head>span{padding:1.6mm 2mm;display:flex;align-items:center}.sh-head .c-p,.sh-head .c-t{justify-content:center;text-align:center;line-height:1.1}
-.sh-rows{flex:1;min-height:0;display:flex;flex-direction:column;border:.5mm solid #000;border-top:0}
-.sh-r{flex:1 1 0;max-height:17mm;border-top:.3mm solid #000;font-size:var(--fs)}.sh-r:first-child{border-top:0}
+.sh-head{background:#e4e4e4;color:#000;font-weight:800;font-size:11pt;border:.5mm solid #000;margin-bottom:-3mm}.sh-head>span{padding:1.6mm 2mm;display:flex;align-items:center;border-left:.3mm solid #000}.sh-head>span:first-child{border-left:0}.sh-head .c-p,.sh-head .c-t{justify-content:center;text-align:center;line-height:1.1}
+.sh-rows{flex:0 0 auto;display:flex;flex-direction:column;border:.5mm solid #000;border-top:0}.sheet.measure .sh-rows{flex:1 1 0;min-height:0}
+.sh-r{flex:0 0 auto;min-height:var(--rh,10mm);border-top:.3mm solid #000;font-size:var(--fs)}.sh-r:first-child{border-top:0}.sheet.measure .sh-r{flex:1 1 0;min-height:auto;max-height:17mm}
 .sh-r>span{padding:.6mm 2mm;display:flex;align-items:center;border-left:.3mm solid #000}.sh-r>span:first-child{border-left:0;justify-content:center;font-weight:700}
 .sh-r .c-it{flex-direction:column;align-items:flex-start;justify-content:center;line-height:1.15}.sh-r .c-it em{font-style:normal;font-size:.78em;color:#222;margin-top:.4mm}
 .sh-r .c-q,.sh-r .c-u{justify-content:center;text-align:center;font-weight:700}.sh-r .c-u{font-weight:400}.sh-r .c-p{border-left:.6mm solid #000}.sh-r .c-t{border-left:.3mm solid #000}
 .sh-head .c-q,.sh-head .c-u{justify-content:center}
+#printArea,.gdpaper{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 /* overlays */
 .ov{position:fixed;inset:0;z-index:55;background:var(--bg);overflow:auto;display:flex;flex-direction:column}
 .ovbar{position:sticky;top:0;z-index:2;display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--line)}
@@ -238,23 +239,22 @@ html,body{margin:0}
 .big-btn{min-height:52px;font-size:17px}
 .papersel{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:700}.papersel select{width:auto;min-height:40px}
 .cmpchips{margin-top:2px}
-.gdpaper{background:#fff;color:#000;margin:12px auto;padding:12mm;box-shadow:var(--shadow);width:calc(100% - 24px)}
-:is(#printArea,.gdpaper) .gd{font-family:Arial,Helvetica,sans-serif;color:#000;font-size:12pt;line-height:1.3}
-:is(#printArea,.gdpaper) .gd h1{font-size:24pt;margin:0 0 1mm;letter-spacing:.02em}
-:is(#printArea,.gdpaper) .gd .gd-sub{font-size:14pt;font-weight:700;margin:0 0 2mm}
-:is(#printArea,.gdpaper) .gd .gd-note{margin:0 0 3mm;border:.3mm solid #000;padding:2mm 3mm;font-size:11pt}
-:is(#printArea,.gdpaper) .gd h2{font-size:15pt;margin:6mm 0 2mm;border-bottom:.8mm solid #000;padding-bottom:1mm;break-after:avoid}
-:is(#printArea,.gdpaper) .gd table{width:100%;border-collapse:collapse;margin:0 0 3mm}
-:is(#printArea,.gdpaper) .gd th,:is(#printArea,.gdpaper) .gd td{border:.3mm solid #000;padding:2.2mm 2.5mm;text-align:left;font-size:11.5pt;vertical-align:middle}
-:is(#printArea,.gdpaper) .gd th{background:#000;color:#fff;font-size:10.5pt}
-:is(#printArea,.gdpaper) .gd td.r,:is(#printArea,.gdpaper) .gd th.r{text-align:right}
-:is(#printArea,.gdpaper) .gd .bx{width:11mm;text-align:center}
-:is(#printArea,.gdpaper) .gd .bx i{display:inline-block;width:6mm;height:6mm;border:.5mm solid #000}
-:is(#printArea,.gdpaper) .gd td small{display:block;font-size:9.5pt;color:#222}
-:is(#printArea,.gdpaper) .gd tr{break-inside:avoid}
-:is(#printArea,.gdpaper) .gd tr.gt td{background:#eee}
-:is(#printArea,.gdpaper) .gd .gd-total{font-size:14pt;margin:4mm 0}
-:is(#printArea,.gdpaper) .gd .gd-notes{margin-top:8mm}
+
+
+
+.gpage{-webkit-print-color-adjust:exact;print-color-adjust:exact;--gs:12pt;box-sizing:border-box;padding:25.4mm;background:#fff;color:#000;overflow:hidden;font-family:Arial,Helvetica,sans-serif}
+.gp-in{overflow:hidden;font-size:var(--gs);line-height:1.3;color:#000}
+.gd h1{font-size:2em;margin:0 0 .1em;letter-spacing:.02em}.gd .gd-sub{font-size:1.15em;font-weight:700;margin:0 0 .25em}
+.gd .gd-note{margin:0 0 .35em;border:.3mm solid #000;padding:.25em .5em;font-size:.92em}
+.gd h2{font-size:1.25em;margin:.6em 0 .25em;border-bottom:.8mm solid #000;padding-bottom:.1em}
+.gd table{width:100%;border-collapse:collapse;margin:0 0 .3em;table-layout:fixed}
+.gd th,.gd td{border:.3mm solid #000;padding:.2em .35em;text-align:left;font-size:.96em;vertical-align:middle}
+.gd th{background:#e4e4e4;color:#000;font-weight:800;font-size:.88em;border-width:.5mm}
+.gd td.r,.gd th.r{text-align:right}.gd .bx{width:2.3em;text-align:center}
+.gd .bx i{display:inline-block;width:1.1em;height:1.1em;border:.5mm solid #000;vertical-align:middle}
+.gd td small{display:block;font-size:.8em;color:#222}.gd tr{break-inside:avoid}.gd tr.gt td{background:#eee}
+.gd th.cq{width:3.4em}.gd th.cu{width:4.2em}.gd th.cp{width:6.2em}.gd th.ca{width:6.6em}.gd th.cph{width:3.8em}
+.gd .gd-total{font-size:1.15em;margin:.5em 0}.gd .gd-notes{margin-top:.9em}
 
 </style>
 </head>
@@ -1786,13 +1786,23 @@ html,body{margin:0}
     var p = paper(), d = document.createElement('div'); d.className = 'sheet'; d.style.width = p.w + 'mm'; d.style.height = (p.h - 2) + 'mm';
     d.innerHTML = '<div class="sh-top"><div class="sh-title">LIST OF MATERIALS</div><div class="sh-contact">Contact number<b>' + CONTACT + '</b></div></div>' +
       '<div class="sh-meta"><span>List no. ' + listNo + (label ? ', ' + label : '') + '</span><span>Store name: <i class="ln"></i></span><span>Date: <i class="ln s"></i></span></div>' +
-      '<div class="sh-note">Please write the price for <b>ONE unit</b>. The total is optional: quantity times price. Write <b>NA</b> if the item is not available.</div>' +
+      '<div class="sh-note">Write <b>NA</b> if the item is not available. The total is optional: quantity times price.</div>' +
       '<div class="sh-head"><span class="c-no">No.</span><span class="c-it">Item and description</span><span class="c-q">Qty</span><span class="c-u">Unit</span><span class="c-p">Price per unit (₱)</span><span class="c-t">Total (₱)</span></div>' +
       '<div class="sh-rows">' + chunk.map(function (it, i) { return '<div class="sh-r"><span class="c-no">' + (start + i + 1) + '</span><span class="c-it"><b>' + esc(it.n) + '</b>' + (it.d ? '<em>' + esc(it.d) + '</em>' : '') + '</span><span class="c-q">' + esc(it.q) + '</span><span class="c-u">' + esc(it.u) + '</span><span class="c-p"></span><span class="c-t"></span></div>'; }).join('') + '</div>';
     return d;
   }
   function fits(pg) { var r = pg.querySelector('.sh-rows'); return r.scrollHeight <= r.clientHeight + 1 && pg.scrollHeight <= pg.clientHeight + 1 && r.scrollWidth <= r.clientWidth + 1; }
-  function fitPage(pg) { for (var fs = 14; fs >= 8.5; fs -= 0.5) { pg.style.setProperty('--fs', fs + 'pt'); if (fits(pg)) return true; } return false; }
+  function fitPage(pg) {
+    pg.classList.add('measure'); var ok = false;
+    for (var fs = 14; fs >= 8.5; fs -= 0.5) { pg.style.setProperty('--fs', fs + 'pt'); if (fits(pg)) { ok = true; break; } }
+    if (ok) {
+      /* rows grow to use the page so the table ends in a clean closed line, with room to write */
+      var rows = pg.querySelector('.sh-rows'), n = rows.children.length, rh = Math.min(Math.floor(rows.clientHeight / n) - 1, 26 * 3.7795);
+      pg.classList.remove('measure'); pg.style.setProperty('--rh', Math.max(20, rh) + 'px');
+      for (var k = 0; k < 40 && !fits(pg); k++) { rh -= 2; pg.style.setProperty('--rh', Math.max(20, rh) + 'px'); }
+    } else pg.classList.remove('measure');
+    return ok;
+  }
   function buildSheets(phs) {
     var area = $('sheetArea'); area.innerHTML = ''; area.style.width = paper().w + 'mm';
     phs.forEach(function (ph) {
@@ -1830,7 +1840,7 @@ html,body{margin:0}
     else if ((b = t.closest('#prevSeg button'))) openPreview(b.getAttribute('data-pm'));
     else if (t.closest('#prevPrint')) { setPageSize(); document.body.classList.add('ps'); setTimeout(function () { window.print(); }, 50); }
     else if (t.closest('#prevClose')) closeOv('prevOv');
-    else if (t.closest('#guidePrint')) { setPageSize(); $('printArea').innerHTML = guideHtml(); document.body.classList.add('pb'); setTimeout(function () { window.print(); }, 50); }
+    else if (t.closest('#guidePrint')) { setPageSize(); document.body.classList.add('ps'); setTimeout(function () { window.print(); }, 50); }
     else if (t.closest('#guideClose')) closeOv('guideOv');
   });
   document.addEventListener('change', function (e) {
@@ -1838,31 +1848,71 @@ html,body{margin:0}
     if ($('prevOv') && !$('prevOv').hidden) openPreview(prevMode); else if ($('guideOv') && !$('guideOv').hidden) openGuide();
   });
 
-  /* ===== buying guide: which store to buy each item from ===== */
-  function guideHtml() {
+  /* ===== buying guide: which store to buy each item from. One page if it fits, else the cut falls between stores. 1 inch margins ===== */
+  function guideData() {
     var sc = cmpPh(), list = (sc === 'all' ? allItems() : allItems().filter(function (it) { return it.ph === sc; })).filter(function (it) { return it.t !== 'F'; });
-    var groups = [[], [], []], none = [], showPh = sc === 'all', grand = 0;
+    var groups = [[], [], []], none = [], showPh = sc === 'all', grand = 0, blocks = [];
     list.forEach(function (it) { var l = lowest(it); if (l.price > 0) groups[l.idx[0]].push({ it: it, price: l.price }); else none.push(it); });
-    var h = '<div class="gd"><h1>BUYING GUIDE</h1><p class="gd-sub">' + (sc === 'all' ? 'All phases' : 'Phase ' + (sc + 1) + ': ' + esc(TITLES[sc])) + '</p>' +
-      '<p class="gd-note">Buy each item at the store written in the heading. Tick the box when it is bought. If the price is much higher than written, call before you pay.</p>';
+    function nm(it) { return '<td><b>' + esc(it.n) + '</b>' + (it.d ? '<small>' + esc(it.d) + '</small>' : '') + '</td>'; }
     [0, 1, 2].forEach(function (i) {
       var g = groups[i]; if (!g.length) return; var tot = 0;
-      h += '<h2>Buy at: ' + esc(supName(i)) + '</h2><table><thead><tr><th class="bx"></th>' + (showPh ? '<th>Phase</th>' : '') + '<th>Item</th><th>Qty</th><th>Unit</th><th>Price each</th><th>Amount</th></tr></thead><tbody>';
-      g.forEach(function (x) { var a = num(x.it.q) * x.price; tot += a; h += '<tr><td class="bx"><i></i></td>' + (showPh ? '<td>' + (x.it.ph + 1) + '</td>' : '') + '<td><b>' + esc(x.it.n) + '</b>' + (x.it.d ? '<small>' + esc(x.it.d) + '</small>' : '') + '</td><td class="r">' + esc(x.it.q) + '</td><td>' + esc(x.it.u) + '</td><td class="r">' + peso(x.price) + '</td><td class="r">' + peso(a) + '</td></tr>'; });
-      grand += tot; h += '<tr class="gt"><td colspan="' + (showPh ? 6 : 5) + '"><b>Total at ' + esc(supName(i)) + '</b></td><td class="r"><b>' + peso(tot) + '</b></td></tr></tbody></table>';
+      var rows = g.map(function (x) { var a = num(x.it.q) * x.price; tot += a; return '<tr><td class="bx"><i></i></td>' + (showPh ? '<td>' + (x.it.ph + 1) + '</td>' : '') + nm(x.it) + '<td class="r">' + esc(x.it.q) + '</td><td>' + esc(x.it.u) + '</td><td class="r">' + peso(x.price) + '</td><td class="r">' + peso(a) + '</td></tr>'; });
+      grand += tot;
+      blocks.push({ title: 'Buy at: ' + esc(supName(i)), head: '<th class="bx"></th>' + (showPh ? '<th class="cph">Phase</th>' : '') + '<th>Item</th><th class="r cq">Qty</th><th class="cu">Unit</th><th class="r cp">Price each</th><th class="r ca">Amount</th>', rows: rows, foot: '<tr class="gt"><td colspan="' + (showPh ? 6 : 5) + '"><b>Total at ' + esc(supName(i)) + '</b></td><td class="r"><b>' + peso(tot) + '</b></td></tr>' });
     });
-    if (none.length) {
-      h += '<h2>No price yet. Ask the store first</h2><table><thead><tr><th class="bx"></th>' + (showPh ? '<th>Phase</th>' : '') + '<th>Item</th><th>Qty</th><th>Unit</th></tr></thead><tbody>' + none.map(function (it) { return '<tr><td class="bx"><i></i></td>' + (showPh ? '<td>' + (it.ph + 1) + '</td>' : '') + '<td><b>' + esc(it.n) + '</b>' + (it.d ? '<small>' + esc(it.d) + '</small>' : '') + '</td><td class="r">' + esc(it.q) + '</td><td>' + esc(it.u) + '</td></tr>'; }).join('') + '</tbody></table>';
+    if (none.length) blocks.push({ title: 'No price yet. Ask the store first', head: '<th class="bx"></th>' + (showPh ? '<th class="cph">Phase</th>' : '') + '<th>Item</th><th class="r cq">Qty</th><th class="cu">Unit</th>', rows: none.map(function (it) { return '<tr><td class="bx"><i></i></td>' + (showPh ? '<td>' + (it.ph + 1) + '</td>' : '') + nm(it) + '<td class="r">' + esc(it.q) + '</td><td>' + esc(it.u) + '</td></tr>'; }), foot: '' });
+    return { sc: sc, blocks: blocks, grand: grand, empty: !list.length };
+  }
+  function blockHtml(b, from, to, cont) {
+    var last = to >= b.rows.length;
+    return '<h2>' + b.title + (cont ? ' (continued)' : '') + '</h2><table><thead><tr>' + b.head + '</tr></thead><tbody>' + b.rows.slice(from, to).join('') + (last ? b.foot : '') + '</tbody></table>';
+  }
+  function guidePages() {
+    var d = guideData(), p = paper(), area = $('sheetArea'); area.innerHTML = ''; area.style.width = p.w + 'mm';
+    var sub = d.sc === 'all' ? 'All phases' : 'Phase ' + (d.sc + 1) + ': ' + esc(TITLES[d.sc]);
+    var intro = '<h1>BUYING GUIDE</h1><p class="gd-sub">' + sub + '<span class="pgn"></span></p><p class="gd-note">Buy each item at the store written in the heading. Tick the box when it is bought. If the price is much higher than written, call before you pay.</p>';
+    var small = '<p class="gd-sub">BUYING GUIDE, ' + (d.sc === 'all' ? 'all phases' : 'Phase ' + (d.sc + 1)) + '<span class="pgn"></span></p>';
+    var outro = '<p class="gd-total">Expected total of the priced items: <b>' + peso(d.grand) + '</b></p><p class="gd-notes">Notes: ______________________________________________</p>';
+    function mk(fs, html) {
+      var pg = document.createElement('div'); pg.className = 'gpage'; pg.style.width = p.w + 'mm'; pg.style.height = (p.h - 2) + 'mm'; pg.style.setProperty('--gs', fs + 'pt');
+      var inner = document.createElement('div'); inner.className = 'gp-in gd'; inner.style.height = (p.h - 2 - 50.8) + 'mm'; inner.innerHTML = html; pg.appendChild(inner); area.appendChild(pg);
+      return { pg: pg, inner: inner };
     }
-    if (!list.length) h += '<p>There are no materials in this phase yet.</p>';
-    h += '<p class="gd-total">Expected total of the priced items: <b>' + peso(grand) + '</b></p><p class="gd-notes">Notes: ______________________________________________</p></div>';
-    return h;
+    function over(o) { return o.inner.scrollHeight > o.inner.clientHeight + 1; }
+    var all = intro + (d.empty ? '<p>There are no materials in this phase yet.</p>' : '') + d.blocks.map(function (b) { return blockHtml(b, 0, b.rows.length, false); }).join('') + outro, fs, o;
+    for (fs = 12; fs >= 8.5; fs -= 0.5) { o = mk(fs, all); if (!over(o)) return 1; area.removeChild(o.pg); }
+    /* more than one page: keep each store together, cut between stores */
+    fs = 11; var pages = [], cur = mk(fs, intro); pages.push(cur);
+    function fresh() { cur = mk(fs, small); pages.push(cur); }
+    d.blocks.forEach(function (b) {
+      var from = 0, cont = false;
+      while (from < b.rows.length) {
+        var before = cur.inner.innerHTML, empty = !cur.inner.querySelector('table'), k = b.rows.length;
+        cur.inner.insertAdjacentHTML('beforeend', blockHtml(b, from, k, cont));
+        if (!over(cur)) { from = k; break; }
+        cur.inner.innerHTML = before;
+        if (!empty) { fresh(); continue; }       /* the store goes to the next page whole */
+        /* a single store longer than a page: split its rows */
+        for (k = b.rows.length - 1; k >= from + 1; k--) { cur.inner.insertAdjacentHTML('beforeend', blockHtml(b, from, k, cont)); if (!over(cur)) break; cur.inner.innerHTML = before; }
+        if (k < from + 1) { k = from + 1; cur.inner.insertAdjacentHTML('beforeend', blockHtml(b, from, k, cont)); }
+        from = k; cont = true; if (from < b.rows.length) fresh();
+      }
+    });
+    var keep = cur.inner.innerHTML; cur.inner.insertAdjacentHTML('beforeend', outro);
+    if (over(cur)) { cur.inner.innerHTML = keep; fresh(); cur.inner.insertAdjacentHTML('beforeend', outro); }
+    pages.forEach(function (q, i) { var el = q.inner.querySelector('.pgn'); if (el && pages.length > 1) el.textContent = ', page ' + (i + 1) + ' of ' + pages.length; });
+    return pages.length;
   }
   function openGuide() {
     var ov = $('guideOv'); if (!ov) { ov = document.createElement('div'); ov.id = 'guideOv'; ov.className = 'ov'; document.body.appendChild(ov); }
     setPageSize(); ov.hidden = false; document.body.classList.add('lock');
     ov.innerHTML = '<div class="ovbar"><b>Buying guide</b><span class="spacer"></span>' + paperSelect() + '<button type="button" class="solid" id="guidePrint">Print</button><button type="button" id="guideClose">Close</button></div>' +
-      '<p class="ovnote">For the person who will do the shopping. It lists every item under the store with the lowest price. The phase you chose in Compare is used. In the print window turn off Headers and footers.</p><div class="gdpaper" style="max-width:' + paper().w + 'mm">' + guideHtml() + '</div>';
+      '<p class="ovnote">For the person who will do the shopping. Each item is listed under the store with the lowest price, for the phase you chose in Compare. It fits one page when it can. When it cannot, the page breaks between stores. Margins are 1 inch. In the print window pick the same paper, set Margins to None and turn off Headers and footers.</p><div id="guidePages"></div>';
+    var n = guidePages(), p = paper(), box = $('guidePages'), pxW = p.w * 3.7795, pxH = p.h * 3.7795, sc = Math.min(1, (Math.min(ov.clientWidth, 900) - 24) / pxW);
+    Array.prototype.forEach.call($('sheetArea').children, function (pg) {
+      var w = document.createElement('div'); w.className = 'pv'; w.style.width = (pxW * sc) + 'px'; w.style.height = (pxH * sc) + 'px';
+      var c = pg.cloneNode(true); c.style.transform = 'scale(' + sc + ')'; c.style.transformOrigin = 'top left'; w.appendChild(c); box.appendChild(w);
+    });
   }
 
   /* ===== encode the prices written on a returned sheet. Photo on top for reference, big boxes below ===== */
