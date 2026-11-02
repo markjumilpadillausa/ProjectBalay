@@ -1,6 +1,6 @@
 # ProjectBalay
 
-Our family house, one phase at a time. A Family Project. Created October 24, 2026. Version 1.1.0, updated November 2, 2026.
+Our family house, one phase at a time. A Family Project. Created October 24, 2026. Version 1.2.0, updated November 2, 2026.
 
 ## What the public sees
 The 3D house, the moving sun, and how much sun each room gets. Nothing else.
@@ -8,7 +8,7 @@ The 3D house, the moving sun, and how much sun each room gets. Nothing else.
 ## What only Mark and Yda Jane see (PIN)
 Materials per phase with Supplier 1, 2 and 3 prices, the supplier comparison, the budget with the 70/30 computation, and the savings and spending log.
 
-## New in version 1.1.0
+## New in version 1.2.0
 **Site compass (public).** On the House tab, press Start phone compass, stand where the middle of the house will be and hold the phone flat. The plan turns with the phone and tells you which wall and which rooms are in front, behind, left and right. Use "Line up a string" to find the direction for the long walls or the end walls. Needs https (GitHub Pages is fine). On iPhone, allow motion and orientation when asked. Try it flat like the compass app, and keep it away from metal.
 
 **3D view.** Drag to turn, pinch to zoom, drag with two fingers to move it, twist two fingers to rotate. With a mouse: Shift or right button and drag to move. Double tap to reset.

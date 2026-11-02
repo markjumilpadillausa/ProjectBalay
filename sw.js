@@ -1,6 +1,6 @@
 /* ProjectBalay service worker: open the app with no internet. */
-var CACHE = 'projectbalay-v1';
-var CORE = ['./', 'index.html', 'manifest.json', 'icon-192.png', 'icon-512.png'];
+var CACHE = 'projectbalay-v2';
+var CORE = ['./', 'index.html', 'manifest.json', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'apple-touch-icon.png'];
 self.addEventListener('install', function (e) { e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(CORE); }).then(function () { return self.skipWaiting(); })); });
 self.addEventListener('activate', function (e) { e.waitUntil(caches.keys().then(function (ks) { return Promise.all(ks.filter(function (k) { return k !== CACHE; }).map(function (k) { return caches.delete(k); })); }).then(function () { return self.clients.claim(); })); });
 self.addEventListener('fetch', function (e) {
